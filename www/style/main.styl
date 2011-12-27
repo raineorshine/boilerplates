@@ -1,0 +1,43 @@
+/******************************
+ * Color Definitions
+ ******************************/
+
+
+/******************************
+ * Fonts
+ ******************************/
+//@font-face { font-family: Winchester; src: url("fonts/1873_Winchester.ttf"); }
+
+
+/******************************
+ * Functions
+ ******************************/
+vendor(prop, args)
+  -moz-{prop} args
+  -webkit-{prop} args
+  {prop} args
+
+border-radius()
+  vendor('border-radius', arguments)
+
+box-shadow()
+  vendor('box-shadow', arguments)
+
+
+/******************************
+ * Defaults
+ ******************************/
+
+
+/******************************
+ * Page Elements
+ ******************************/
+
+
+/******************************
+ * Components
+ ******************************/
+.center
+  width 950px
+  margin 0 auto
+
