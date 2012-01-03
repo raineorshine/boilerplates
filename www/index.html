@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-<link rel="Stylesheet" type="text/css" href="style/reset.css"/>
+<link rel="Stylesheet" type="text/css" href="style/normalize.css"/>
 <link rel="Stylesheet" type="text/css" href="style/main.css"/>
 
 <!--[if lt IE 9]>
@@ -22,17 +22,21 @@ $LAB
 	//.script("https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
 	//.script("http://documentcloud.github.com/underscore/underscore-min.js")
 	.script("scripts/lib/jquery.1.7.1.min.js")
-	.script("scripts/lib/functional.min.js") // must occur before underscore so _ is overridden
+	.script("scripts/lib/functional.js") // must occur before underscore so _ is overridden
+	.script("scripts/lib/to-function.custom.js")
 	.script("scripts/lib/underscore-1.1.7.min.js")
-	.script("scripts/lib/jquery.livequery.js")
 	.script("scripts/lib/json2.js")
-	.script("scripts/source/rjs.2.0.js")
-	.script("scripts/source/rjs.2.0-proto.js")
-	.script("scripts/source/underscore-proto.js")
-	.script("scripts/source/underscore-functional.js")
-	.script("scripts/source/creatable.1.1.js")
-	.script("scripts/source/creatable-array-ext.1.0.js")
-	.script("scripts/source/creatable-ext.js")
+	.script("scripts/lib/backbone-min.js")
+	.script("scripts/lib/backbone-ext.js")
+	.script("scripts/lib/rjs.2.1.js")
+	.script("scripts/lib/rjs.2.0-proto.js")
+	.script("scripts/lib/underscore-proto.js")
+	.script("scripts/lib/underscore-functional.js")
+	.script("scripts/lib/creatable.1.2.js")
+	.script("scripts/lib/creatable-array-ext.1.0.js")
+	.script("scripts/lib/creatable-ext.js")
+	.script("scripts/lib/module.js")
+	.script("scripts/lib/jquery.livequery.js")
 	.script("scripts/app.coffee.js");
 </script>
 </body>

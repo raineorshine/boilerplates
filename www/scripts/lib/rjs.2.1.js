@@ -60,6 +60,11 @@ RJS.repeatString = function(str, n, delim) {
 	return RJS.mapNumber(n, function(i) { return str; }).join(delim);
 };
 
+RJS.toTitleCase = function(str) {
+	var capitalizeFirst = function(s) { return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase(); };
+	return RJS.map(str.split(" "), capitalizeFirst).join(" ");
+};
+
 /***********************************
  * Number
  ***********************************/
@@ -88,6 +93,16 @@ RJS.mapNumber = function(n, f) {
  * Array
  ***********************************/
 
+/** Calls a function on each item in an array and returns a new array of the results. */
+RJS.map = function(arr, f) {
+	var results = [];
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
+		results.push(f(arr[i], i));
+	}
+	return results;
+};
+
 /** Group the array of objects by one of the object's properties or mappable function. Returns a dictionary containing the original array's items indexed by the property value. */
 RJS.group = function(arr, propOrFunc) {
 
@@ -100,7 +115,8 @@ RJS.group = function(arr, propOrFunc) {
 		function(item) { return item[propOrFunc]; };
 
 	var dict = {};
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		var key = getGroupKey(arr[i]);
 		if(!(key in dict)) {
 			dict[key] = [];
@@ -123,7 +139,8 @@ RJS.orderedGroup = function(arr, propOrFunc) {
 
 	var results = [];
 	var dict = {};
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		var key = getGroupKey(arr[i]);
 		if(!(key in dict)) {
 			dict[key] = [];
@@ -138,7 +155,8 @@ RJS.orderedGroup = function(arr, propOrFunc) {
 /** Returns a dictionary whose keys are the values of the array and values are the number of instances of that value within the array. */
 RJS.tally = function(arr) {
 	var dict = {};
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		var count = dict[arr[i]] || 0;
 		dict[arr[i]] = count + 1;
 	};
@@ -147,7 +165,8 @@ RJS.tally = function(arr) {
 
 /** Returns true if the array contains the given value (==). */
 RJS.contains = function(arr, value) {
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		if(arr[i] == value) {
 			return true;
 		}
@@ -157,7 +176,8 @@ RJS.contains = function(arr, value) {
 
 /** Returns true if the array contains the given value (===). */
 RJS.strictContains = function(arr, value) {
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		if(arr[i] === value) {
 			return true;
 		}
@@ -168,7 +188,8 @@ RJS.strictContains = function(arr, value) {
 /** Returns the unique values in the array. */
 RJS.unique = function(arr) {
 	var output = [];
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		if(!RJS.strictContains(output, arr[i])) {
 			output.push(arr[i]);
 		}
@@ -194,7 +215,8 @@ RJS.index = function(arr, i) {
 /** Returns a new array containing the elements of the given array shifted n spaces to the left, wrapping around the end. */
 RJS.rotate = function(arr, n) {
 	var output = [];
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		output.push(RJS.index(arr, i+n));
 	}
 	return output;
@@ -203,7 +225,8 @@ RJS.rotate = function(arr, n) {
 /* Creates an object with a property for each element of the given array, determined by a function that returns the property as a { key: value }. */
 RJS.toObject = function(arr, f) {
 	var keyValues = [];
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		keyValues.push(f(arr[i], i));
 	}
 	return RJS.merge.apply(arr, keyValues);
@@ -211,7 +234,8 @@ RJS.toObject = function(arr, f) {
 
 /** Returns the first item in the given array that returns true for the given function. If no item is found, returns false. */
 RJS.find = function(arr, f) {
-	for(var i=0; i<arr.length; i++) {
+	var len = arr.length;
+	for(var i=0; i<len; i++) {
 		if(f(arr[i], i)) {
 			return arr[i];
 		}
@@ -304,7 +328,8 @@ RJS.dynamicCompare = function(props) {
 	}
 
 	return function(a,b) {
-		for(var i=0; i<props.length; i++) {
+		var len = props.length;
+		for(var i=0; i<len; i++) {
 			var aVal, bVal, sortDir;
 			if(typeof props[i] == "function") {
 				aVal = props[i](a);
@@ -396,7 +421,8 @@ RJS.merge = function(/*arguments*/) {
 	var mothership = {};
 	
 	// iterate through each given object
-	for(var i=0; i<arguments.length; i++) {
+	var len = arguments.length;
+	for(var i=0; i<len; i++) {
 		var outlier = arguments[i];
 		
 		// add each property to the mothership
@@ -496,7 +522,8 @@ RJS.toInstance = function(f, thisIndex) {
 
 /** Assigns the given list of methods from the host object to the protoObj's prototype after converting them with toInstance. */
 RJS.install = function(protoObj, host, methods, thisIndex) {
-	for(var i=0; i<methods.length; i++) {
+	var len = methods.length;
+	for(var i=0; i<len; i++) {
 
 		// the method can be a string if the hostKey and protoKey are the same ("contains") or an object that maps the host key to the proto key ({repeatString: "repeat"})
 		var hostKey, protoKey;
@@ -532,6 +559,7 @@ RJS.mapObject = function(obj, f) {
 
 /** Returns an array whose items are the result of calling f(key, value) on each property of the given object. */
 RJS.toArray = function(obj, f) {
+	var f = f || function(key, value) { return { key: key, value: value }; };
 	var result = [];
 	for(var key in obj) {
 		result.push(f(key, obj[key]));
@@ -550,9 +578,22 @@ RJS.filterObject = function(obj, f) {
 	return result;
 };
 
+/** Changes the specified keys in an object. 
+	@example RJS.changeKeys(
+		{ fname: "Raine", lname: "Lourie", specialty: "Javascript" }, 
+		{ fname: "fname", lname: "lname" }
+	)
+*/
+RJS.changeKeys = function(obj, changedKeys) {
+	var result = {};
+	for(var key in obj) {
+		result[key in changedKeys ? changedKeys[key] : key] = obj[key];
+	}
+	return result;
+};
 
 /** Invokes a callback after all the given asynchronous functions have completed. All asynchronous functions must accept a single callback argument. */
-var callAfterDone = function(queue, callback) {
+RJS.callAfterDone = function(queue, callback) {
 
 	// defaults
 	queue = queue || [];
@@ -572,7 +613,8 @@ var callAfterDone = function(queue, callback) {
 			}
 		};
 
-		for(var i=0; i<queue.length; i++) {
+		var len = queue.length;
+		for(var i=0; i<len; i++) {
 			queue[i](decAndCheck);
 		}
 	}
