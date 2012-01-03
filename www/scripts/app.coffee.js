@@ -1,12 +1,9 @@
 (function() {
-  var build, render;
+  var build;
   build = function() {
     return ["#page", []];
   };
-  render = function() {
-    return document.body.appendChild(create(build()));
-  };
   $(function() {
-    return render();
+    return Creatable.render(build());
   });
 }).call(this);
