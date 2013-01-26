@@ -2,7 +2,7 @@ CoffeeScript, Stylus enabled web boilerplate
 
 Stylesheets
 ====================
-reset
+normalize.css
 
 Internal Scripts
 ====================

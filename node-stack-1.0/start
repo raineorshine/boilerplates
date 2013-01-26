@@ -1,0 +1,5 @@
+stylus public/style/ -w &
+coffee -o server/out/ -cw server/src/ &
+coffee -o public/scripts/out/ -cw public/scripts/src/ &
+mongod &
+foreman start

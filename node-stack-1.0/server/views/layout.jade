@@ -1,0 +1,33 @@
+!!! 5
+//if lt IE 7
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
+//if IE 7
+  <html class="no-js lt-ie9 lt-ie8" lang="en">
+//if IE 8
+  <html class="no-js lt-ie9" lang="en">
+<!--[if gt IE 8]><!-->
+html(class='no-js', lang='en')
+  <!--<![endif]-->
+
+  head
+    title= title
+    link(rel='stylesheet', href='/style/normalize.css')
+    link(rel='stylesheet', href='/style/main.css')
+
+  body
+    script
+      var data = !{bootstrap};
+    // TODO: build process combines included scripts into single file
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
+    script(src="/scripts/lib/json2.js")
+    script(src="/scripts/lib/underscore-1.4.2.min.js")
+    script(src="/scripts/lib/backbone-0.9.10.js")
+    script(src="/scripts/lib/rjs.2.9.0.js")
+    script(src="/scripts/lib/creatable.2.0.js")
+    script(src="/scripts/lib/creatable.backbone.js")
+    script(src="/scripts/lib/jquery.livequery.1.1.1.js")
+    script(src="/scripts/lib/jquery.gather.js")
+    script(src="/scripts/lib/date.js")
+    script(src="/scripts/out/main.js")
+    script(src="/scripts/out/views/partials.js")
+    script(src="/scripts/out/views/index.js")
